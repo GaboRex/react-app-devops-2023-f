@@ -79,5 +79,5 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         push: true
-        tags: GaboRex/react-app-devops-2023-f:latest
+        tags: gaborex/react-app-devops-2023-f:latest
       
