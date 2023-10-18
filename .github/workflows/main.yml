@@ -53,7 +53,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Build
-        path: build\
+        path: build
 
   build_docker_image_and_push_to_docker_hub:
     runs-on: ubuntu-20.04
@@ -79,5 +79,20 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         push: true
+<<<<<<< HEAD
         tags: gaborex/react-app-devops-2023-f:latest
+=======
+        tags: cesarill/react-app:latest
+
+
+  deploy_into_dev_server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Commands
+        run: |
+          echo ${{ secrets.REACT_SERVER_PRIVATE_KEY }} > key.pem
+          chmod 440 key.pem
+          ssh -i key.pem ec2-user@34.228.78.13 "sudo docker stop Servidor_Desarrollo"
+          ssh -i key.pem ec2-user@34.228.78.13 "sudo docker run --name Servidor_Desarrollo -d -p 8080:80 cesarill/react-app:latest"
+>>>>>>> 366a4f787bae2ab794eedd866bc04072b30b5645
       
