@@ -1,9 +1,14 @@
-name: Continous Integration
+name: CI/CD
 
 on:
   push:
     branches:
       - master
+    paths-ignore:
+      - '.github/workflows/**'
+  pull_request:
+  
+    
 
 jobs:
   test_jest:
@@ -39,6 +44,7 @@ jobs:
   build_artifact:
     runs-on: ubuntu-20.04
     needs: [test_jest, test_cypress]
+    if: github.ref == 'refs/heads/master'
 
     steps:
     - name: Checkout git
@@ -58,6 +64,7 @@ jobs:
   build_docker_image_and_push_to_docker_hub:
     runs-on: ubuntu-20.04
     needs: [test_jest, test_cypress]
+    if: github.ref == 'refs/heads/master'
 
     steps:
     - name: Checkout git
@@ -85,6 +92,7 @@ jobs:
   deploy_into_dev_server:
     runs-on: ubuntu-latest
     needs: [build_docker_image_and_push_to_docker_hub]
+    if: github.ref == 'refs/heads/master'
     steps:
       - name: Commands
         uses: appleboy/ssh-action@master
@@ -94,5 +102,5 @@ jobs:
           key: ${{ secrets.REACT_SERVER_PRIVATE_KEY }}
           script: |
             sudo docker stop REACT_SERVICE
+            sudo docker rm REACT_SERVICE
             sudo docker run -d -p 8080:80 --name REACT_SERVICE cesarill/react-app:latest
-            
