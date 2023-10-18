@@ -4,7 +4,12 @@ on:
   push:
     branches:
       - master
+      - feature/app-js-update
+    paths-ignore:
+      - '.github/workflows/**'
   pull_request:
+  
+    
 
 jobs:
   test_jest:
