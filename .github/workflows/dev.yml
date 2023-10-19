@@ -1,15 +1,7 @@
-name: CI/CD
+name: Testing
 
 on:
-  push:
-    branches:
-      - feature/app-js-update
-    # paths-ignore:
-    #   - '.github/workflows/**'
-  pull_request:
   workflow_dispatch:
-  
-    
 
 jobs:
   test_jest:
