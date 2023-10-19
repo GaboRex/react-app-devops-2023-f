@@ -4,10 +4,9 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - '.github/workflows/**'
-  pull_request:
-  
+    # paths-ignore:
+    #   - '.github/workflows/**'
+  pull_request:  
     
 
 jobs:
@@ -21,6 +20,7 @@ jobs:
     - name: Instalar dependencias
       run: |
         npm install
+        echo ${{ vars.EXAMPLE }}
 
     - name: Pruebas jest
       run: |

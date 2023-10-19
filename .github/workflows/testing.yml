@@ -1,0 +1,39 @@
+name: Testing 
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Who to greet"
+        default: "world"
+
+jobs:
+  test_jest:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout git
+      uses: actions/checkout@v4
+
+    - name: Instalar dependencias
+      run: |
+        npm install
+        echo ${{ vars.EXAMPLE }}
+
+    - name: Pruebas jest
+      run: |
+        npm run test
+
+  test_cypress:  
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout git
+      uses: actions/checkout@v4
+
+    - name: Pruebas Cypress
+      run: |
+        echo "Corriendo pruebas Cypress..."
+        echo "Pruebas correctas! Todo bien!"
+        echo "No tienes instalado Cypress! Tonto!"
+        exit 0
