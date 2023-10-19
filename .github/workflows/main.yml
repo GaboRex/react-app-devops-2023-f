@@ -7,7 +7,7 @@ on:
   pull_request:  
 
 env:
-  variable: "HOLA"
+  variable_hola: "HOLA"
 
 jobs:
   test_jest:
@@ -33,12 +33,14 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Pruebas Cypress
+      env:
+        variable_mundo: "MUNDO"
       run: |
         echo "Corriendo pruebas Cypress..."
         echo "Pruebas correctas! Todo bien!"
         echo "No tienes instalado Cypress! Tonto!"
         echo ${{ vars.EXAMPLE }}
-        echo $variable
+        echo $variable_hola $variable_mundo
         exit 0
 
 
