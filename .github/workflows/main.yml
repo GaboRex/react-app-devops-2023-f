@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-      - 'feature/**'
-    paths:
-       - '!.github/workflows/**'
   pull_request:  
     
 
@@ -38,6 +35,7 @@ jobs:
         echo "Corriendo pruebas Cypress..."
         echo "Pruebas correctas! Todo bien!"
         echo "No tienes instalado Cypress! Tonto!"
+        echo ${{ vars.EXAMPLE }}
         exit 0
 
 
