@@ -2,6 +2,10 @@ name: Testing
 
 on:
   workflow_dispatch:
+    inputs:
+      name:
+        description: "Who to greet"
+        default: "world"
 
 jobs:
   test_jest:
