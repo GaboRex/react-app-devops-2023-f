@@ -2,7 +2,7 @@ name: Deploy to environment
 
 on:
   schedule:
-    - cron: "58 17 * * *"
+    - cron: "02 18 * * *"
 
 jobs:
   deploy_into_dev_server:
