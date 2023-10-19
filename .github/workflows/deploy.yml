@@ -2,6 +2,8 @@ name: Deploy to environment
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "56 13 * * *"
 
 jobs:
   deploy_into_dev_server:
