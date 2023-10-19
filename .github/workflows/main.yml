@@ -5,7 +5,9 @@ on:
     branches:
       - master
   pull_request:  
-    
+
+env:
+  variable: "HOLA"
 
 jobs:
   test_jest:
@@ -36,6 +38,7 @@ jobs:
         echo "Pruebas correctas! Todo bien!"
         echo "No tienes instalado Cypress! Tonto!"
         echo ${{ vars.EXAMPLE }}
+        echo $variable
         exit 0
 
 
