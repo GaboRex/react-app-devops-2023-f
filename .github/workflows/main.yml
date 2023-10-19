@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - '.github/workflows/**'
-  pull_request:
-  
+      - feature/app-js-update
+    # paths-ignore:
+    #   - '.github/workflows/**'
+  pull_request:  
     
 
 jobs:
