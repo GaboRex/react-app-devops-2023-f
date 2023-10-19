@@ -41,6 +41,7 @@ jobs:
         echo "No tienes instalado Cypress! Tonto!"
         echo ${{ vars.EXAMPLE }}
         echo $variable_hola $variable_mundo
+        echo $GITHUB_REF
         exit 0
 
 
