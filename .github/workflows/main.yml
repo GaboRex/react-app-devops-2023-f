@@ -1,9 +1,13 @@
-name: Continous Integration
+name: CI/CD
 
 on:
   push:
     branches:
       - master
+  pull_request:
+
+env:
+  variable_hola: "HOLA"
 
 jobs:
   test_jest:
@@ -29,16 +33,22 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Pruebas Cypress
+      env:
+        variable_mundo: "MUNDO"
       run: |
         echo "Corriendo pruebas Cypress..."
         echo "Pruebas correctas! Todo bien!"
         echo "No tienes instalado Cypress! Tonto!"
+        echo ${{ vars.EXAMPLE }}
+        echo $variable_hola $variable_mundo
+        echo $GITHUB_REF
         exit 0
 
 
   build_artifact:
     runs-on: ubuntu-20.04
     needs: [test_jest, test_cypress]
+    if: github.ref == 'refs/heads/master'
 
     steps:
     - name: Checkout git
@@ -58,6 +68,7 @@ jobs:
   build_docker_image_and_push_to_docker_hub:
     runs-on: ubuntu-20.04
     needs: [test_jest, test_cypress]
+    if: github.ref == 'refs/heads/master'
 
     steps:
     - name: Checkout git
@@ -81,14 +92,3 @@ jobs:
         push: true
         tags: gaboneme11/react-app-devops-2023-f:latest
 
-
-  deploy_into_dev_server:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Commands
-        run: |
-          echo ${{ secrets.REACT_SERVER_PRIVATE_KEY }} > key.pem
-          chmod 440 key.pem
-          ssh -i key.pem ec2-user@34.228.78.13 "sudo docker stop Servidor_Desarrollo"
-          ssh -i key.pem ec2-user@34.228.78.13 "sudo docker run --name Servidor_Desarrollo -d -p 8080:80 cesarill/react-app:latest"
-      
